@@ -19,32 +19,32 @@ namespace rest_api.Repositories
             IMongoDatabase db = _mongoClient.GetDatabase(DatabaseName);
             _usersCollection = db.GetCollection<Users>(CollectionName);
         }
-        public IEnumerable<Users> GetUsers()
+        public async Task<IEnumerable<Users>> GetUsers()
         {
-            var data = _usersCollection.Find(new BsonDocument()).ToList();
+            var data = await _usersCollection.Find(new BsonDocument()).ToListAsync();
             return data;
         }
 
-        public void AddUsers(Users user)
+        public async Task AddUsers(Users user)
         {
-            _usersCollection.InsertOne(user);
+            await _usersCollection.InsertOneAsync(user);
         }
 
-        public Users GetUserById(string usersId)
+        public async Task<Users> GetUserById(string usersId)
         {
-            return _usersCollection
+            return await _usersCollection
                 .Find(user => user.Id.Equals(usersId))
-                .SingleOrDefault();
+                .SingleOrDefaultAsync();
         }
 
-        public void UpdateUser(string usersId, Users user)
+        public async Task UpdateUser(string usersId, Users user)
         {
-            _usersCollection.ReplaceOne(user => user.Id.Equals(usersId), user);
+            await _usersCollection.ReplaceOneAsync(user => user.Id.Equals(usersId), user);
         }
 
-        public void DeleteUser(string usersId)
+        public async Task DeleteUser(string usersId)
         {
-            _usersCollection.DeleteOne(user => user.Id.Equals(usersId));
+            await _usersCollection.DeleteOneAsync(user => user.Id.Equals(usersId));
         }
     }
 }

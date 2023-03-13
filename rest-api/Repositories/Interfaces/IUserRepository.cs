@@ -4,10 +4,10 @@ namespace rest_api.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        public IEnumerable<Users> GetUsers();
-        public void AddUsers(Users user);
-        public Users GetUserById(string usersId);
-        public void UpdateUser(string usersId,Users user);
-        public void DeleteUser(string usersId);
+        public Task<IEnumerable<Users>> GetUsers();
+        public Task AddUsers(Users user);
+        public Task<Users> GetUserById(string usersId);
+        public Task UpdateUser(string usersId, Users user);
+        public Task DeleteUser(string usersId);
     }
 }

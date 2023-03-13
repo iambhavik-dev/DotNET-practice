@@ -16,40 +16,40 @@ namespace rest_api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Users> GetUsers()
+        public async Task<ActionResult<Users>> GetUsers()
         {
-            var result = userRepository.GetUsers();
+            var result = await userRepository.GetUsers();
             return Ok(result);
         }
 
         [HttpPost]
-        public ActionResult<Users> AddUsers(Users user)
+        public async Task<ActionResult<Users>> AddUsers(Users user)
         {
-            userRepository.AddUsers(user);
+            await userRepository.AddUsers(user);
             return Ok();
         }
 
         [HttpGet]
         [Route("{userId}")]
-        public ActionResult<Users> GetUsers(string userId)
+        public async Task<ActionResult<Users>> GetUsers(string userId)
         {
-            var result = userRepository.GetUserById(userId);
+            var result = await userRepository.GetUserById(userId);
             return Ok(result);
         }
 
         [HttpPost]
         [Route("{userId}")]
-        public ActionResult<Users> UpdateUser(string userId, Users user)
+        public async Task<ActionResult<Users>> UpdateUser(string userId, Users user)
         {
-            userRepository.UpdateUser(userId, user);
+            await userRepository.UpdateUser(userId, user);
             return Ok();
         }
 
         [HttpDelete]
         [Route("{userId}")]
-        public ActionResult<Users> DeleteUser(string userId)
+        public async Task<ActionResult<Users>> DeleteUser(string userId)
         {
-            userRepository.DeleteUser(userId);
+            await userRepository.DeleteUser(userId);
             return Ok();
         }
 
